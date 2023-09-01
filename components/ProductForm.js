@@ -71,7 +71,6 @@ export default function ProductForm({
     }
 
     return (
-
         <form onSubmit={saveProduct}>
 
             <label>Nome do produto</label>
@@ -151,6 +150,7 @@ export default function ProductForm({
                 className="btn-primary">
                 Salvar
             </button>
+            
         </form>
 
     )
