@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^1.0.0",
+    "@auth/prisma-adapter": "^1.0.2",
     "@aws-sdk/client-s3": "^3.379.1",
+    "@prisma/client": "^5.3.1",
     "axios": "^1.4.0",
+    "bcrypt": "^5.1.1",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "mime-types": "^2.1.35",
@@ -30,6 +33,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.25",
+    "prisma": "^5.3.1",
     "tailwindcss": "^3.3.2"
   }
 }

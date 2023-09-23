@@ -9,11 +9,18 @@ export default function Layout({ children }) {
   const { data: session } = useSession();
   if (!session) {
     return (
-      <div className="bg-blue-900 w-screen h-screen flex items-center">
-        <div className='text-center w-full'>
-          <button onClick={() => signIn('google')} className='bg-white p-2 px-4 rounded-lg'>Login With Google</button>
+      <form className='form'>
+        <div className="login-container">
+          
+          <input type="text" placeholder="Usuário" requird />
+          <input type="password" placeholder="Senha" required />
+          <button type="submit">Entrar</button>
+
+          <div className='loginGoogle'>
+            <button onClick={() => signIn('google')}>Login With Google</button>
+          </div>
         </div>
-      </div>
+      </form>
     )
   }
 
