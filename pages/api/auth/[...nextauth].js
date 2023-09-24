@@ -3,14 +3,7 @@ import { MongoDBAdapter } from '@auth/mongodb-adapter'
 import NextAuth, { getServerSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import clientPromise from "@/lib/mongodb"
-import { CredentialsProvider } from 'next-auth/providers'
-import bcrypt from "bcrypt"
 
-export const authOption = {
-  providers:[
-    
-  ]
-}
 
 const adminEmails = ['julin34@gmail.com']
 
