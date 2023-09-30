@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
+import Alert from "./Alert";
+
 
 export default function ProductForm({
 
@@ -12,17 +14,18 @@ export default function ProductForm({
     price: existingPrice,
     images: existingImages,
     category: assignedCategory,
-    properties:assignedProperties
+    properties: assignedProperties
 }) {
     const [title, setTitle] = useState(existingTitle);
     const [description, setDescription] = useState(existingDescription);
     const [images, setImages] = useState(existingImages || []);
     const [category, setCategory] = useState(assignedCategory || '');
-    const [productProperties, setProductProperties] = useState({assignedProperties} || {})
-    const [price, setPrice] = useState(existingPrice);
+    const [productProperties, setProductProperties] = useState({ assignedProperties } || {})
+    const [price, setPrice] = useState(existingPrice || (0));
     const [goToProducts, setGoToProducts] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [ShowAlert, setShowAlert] = useState(false);
     const router = useRouter();
     useEffect(() => {
         axios.get('/api/categories').then(result => {
@@ -33,8 +36,10 @@ export default function ProductForm({
     async function saveProduct(ev) {
 
         ev.preventDefault();
-        const data = { title, description, price, images, category,
-            properties:productProperties };
+        const data = {
+            title, description, price, images, category,
+            properties: productProperties
+        };
         if (_id) {
             await axios.put('/api/products', { ...data, _id });
 
@@ -72,6 +77,14 @@ export default function ProductForm({
         setImages(images);
     }
 
+    const removeImage = (indexToRemove) => {
+        const updateImages = [...images];
+
+        updateImages.splice(indexToRemove, 1);
+
+        setImages(updateImages);
+    }
+
     function setProductProp(propName, value) {
         setProductProperties(prev => {
             const newProductProps = { ...prev };
@@ -92,13 +105,20 @@ export default function ProductForm({
         }
     }
 
+    const handleShowAlert = () => {
+        setShowAlert(true);
+    };
 
+    const handleCloseAlert = () => {
+        setShowAlert(false);
+    };
 
     return (
         <form onSubmit={saveProduct}>
 
             <label>Nome do produto</label>
             <input
+                required
                 type="text"
                 placeholder="product name:"
                 value={title}
@@ -117,8 +137,8 @@ export default function ProductForm({
             {propertiesToFill.length > 0 && propertiesToFill.map(p => (
                 <div className="flex gap-1">
                     <div>{p.name}</div>
-                    <select 
-                    value={productProperties[p.name]}
+                    <select
+                        value={productProperties[p.name]}
                         onChange={ev => { setProductProp(p.name, ev.target.value) }}>
                         {p.values.map(v => (
                             <option value={v}>{v}</option>
@@ -137,9 +157,15 @@ export default function ProductForm({
                     className="flex flex-wrap gap-1"
                     setList={updateImagesOrder}
                 >
-                    {!!images?.length && images.map(link => (
-                        <div key={link} className="h-24 ">
-                            <img src={link} className="rounded-lg"></img>
+                    {!!images?.length && images.map((link, index) => (
+                        <div key={link} className="h-24 relative">
+                            <img src={link} className="rounded-lg" alt={`Imagem ${index}`} />
+                            <button
+                                className="absolute top-0 right-0 p-2 text-white bg-red-500 rounded-full"
+                                onClick={() => removeImage(index)}
+                            >
+                                Remover
+                            </button>
                         </div>
                     ))}
                 </ReactSortable>
@@ -169,18 +195,29 @@ export default function ProductForm({
                 placeholder="discription"
                 value={description}
                 onChange={ev => setDescription(ev.target.value)}
-
+                required
             />
 
             <label>Preço</label>
             <input
                 type="text"
-                placeholder="price"
+                placeholder="Insira o valor do seu produto"
                 value={price}
-                onChange={ev => setPrice(ev.target.value)}
+                onChange={(ev) => {
+                    const inputValue = ev.target.value;
+                    if (inputValue === '') {
+                        setPrice('');
+                    } else {
+                        const numericValue = parseFloat(inputValue);
 
+                        if (!isNaN(numericValue)) {
+                            setPrice(numericValue);
+                        } else {
+                            <Alert message="Este é um alerta formal." onClose={handleCloseAlert} />
+                        }
+                    }
+                }}
             />
-
 
             <button
                 type="submit"
