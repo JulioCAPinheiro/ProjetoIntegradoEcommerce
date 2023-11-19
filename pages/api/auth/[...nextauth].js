@@ -1,11 +1,15 @@
-
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
 import NextAuth, { getServerSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import clientPromise from "@/lib/mongodb"
+import { Admin } from '@/models/Admin';
+import { mongooseConnect } from '@/lib/mongoose';
 
 
-const adminEmails = ["julin34@gmail.com"]
+async function isAdminEmail(email) {
+  mongooseConnect();
+  return !! (await Admin.findOne({email}));
+}
 
 export const authOptions = {
   providers: [
@@ -16,24 +20,23 @@ export const authOptions = {
   ],
   adapter: MongoDBAdapter(clientPromise),
   callbacks: {
-    session: ({ session, token, user }) => {
-      if (adminEmails.includes(session?.user?.email)) {
+    session: async ({session,token,user}) => {
+      if (await isAdminEmail(session?.user?.email)) {
         return session;
-      }
-      else {
+      } else {
         return false;
       }
     },
-  }
-}
+  },
+};
 
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);
 
-export async function isAdminRequest(req, res) {
-  const session = await getServerSession(req, res, authOptions);
-  if (!adminEmails.includes(session?.user?.email)) {
+export async function isAdminRequest(req,res) {
+  const session = await getServerSession(req,res,authOptions);
+  if (!(await isAdminEmail(session?.user?.email))) {
     res.status(401);
     res.end();
-    throw 'Você não é um administrador';
+    throw 'not an admin';
   }
 }

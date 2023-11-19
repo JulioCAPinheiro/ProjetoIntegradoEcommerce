@@ -29,6 +29,10 @@ h1{
     @apply text-blue-900 mb-2 text-xl;
 }
 
+h2{
+    @apply text-gray-800  mt-6 mb-2 text-lg;
+}
+
 label{
     @apply text-blue-900;
 }
@@ -105,3 +109,31 @@ table.basic a{
     cursor: pointer;
     margin-bottom: 10px;
 }
+
+.AdmInput {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Adicione esta linha para alinhar verticalmente */
+  }
+  
+  .email_Adm_New {
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+  
+  .salve_adm_Button {
+    background-color: #53CFF6;
+    border-radius: 3px;
+    align-items: center; /* Adicione esta linha para alinhar verticalmente */
+    padding: 5px 10px; /* Adicione preenchimento para espaçamento interno */
+    cursor: pointer; /* Adicione um cursor ao botão para indicar interatividade */
+  }
+  
+  .emails_exist_admin{
+    border: solid #F0F0F0;
+    background-color: #F0F0F0;
+    margin: 5px 0 5px 0;
+    padding: 0 15px 0 10px;
+  }
+
+
