@@ -180,11 +180,11 @@ function Categories({ swal }) {
                                 setParentCategory('');
                                 setProperties([]);
                             }}
-                            className="btn-default">Cancel</button>
+                            className="btn-default">Cancelar</button>
                     )}
                     <button type="submit"
                         className="btn-primary py-1">
-                        Save
+                        Salvar
                     </button>
                 </div>
 
