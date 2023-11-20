@@ -95,7 +95,7 @@ function AdminsPage({ swal }) {
             <table className='basic'>
                 <thead>
                     <tr>
-                        <th className='text-left'>ADMING GOOGLE EMAIL</th>
+                        <th className='text-left'>Administrador Google Email</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -120,9 +120,6 @@ function AdminsPage({ swal }) {
                             </td>
                             <td>
                                 <button onClick={() => deleteAdmin(adminEmail._id, adminEmail.email)} type="" className='btn-default'>Apagar</button>
-                            </td>
-                            <td>
-                                <button onClick={editAdmin} type='' className="btn-primary mr-1">Editar</button>
                             </td>
                         </tr>
                     ))}
