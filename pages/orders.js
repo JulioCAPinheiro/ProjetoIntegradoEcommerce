@@ -2,14 +2,18 @@ import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from '../styles/OrdersPage.module.css';
+import Spinner from '@/components/Spinner';
 
 export default function OrdersPage() {
     const [orders, setOrders] = useState([]);
     const [filterPaid, setFilterPaid] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get('/api/orders').then(response => {
             setOrders(response.data);
+            setIsLoading(false);
         });
     }, []);
 
@@ -70,6 +74,15 @@ export default function OrdersPage() {
                         </tr>
                     ))}
                 </tbody>
+                {isLoading && (
+                        <tr>
+                            <td colSpan={2}>
+                                <div className='py-4'>
+                                    <Spinner fullwidth={true} />
+                                </div>
+                            </td>
+                        </tr>
+                    )}
             </table>
         </Layout>
     );

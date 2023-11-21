@@ -3,6 +3,7 @@ import { Category } from "@/models/Category";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { withSwal } from "react-sweetalert2";
+import Spinner from '@/components/Spinner';
 
 function Categories({ swal }) {
     const [editedCategory, setEditedCategory] = useState(null);
@@ -10,14 +11,17 @@ function Categories({ swal }) {
     const [parentCategory, setParentCategory] = useState('');
     const [categories, setCategories] = useState([]);
     const [properties, setProperties] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         fetchCategories();
     }, []);
 
     function fetchCategories() {
+        setIsLoading(true);
         axios.get('/api/categories').then(result => {
             setCategories(result.data);
+            setIsLoading(false);
         })
     }
 
@@ -210,19 +214,28 @@ function Categories({ swal }) {
                                     </td>
 
                                     <td>
-                                        <button onClick={() => editCategory(Category)} className="btn-primary mr-1">
+                                        <button onClick={() => editCategory(Category)} className="btn-default mr-1">
                                             Editar
                                         </button>
 
                                         <button
                                             onClick={() => deleteCategory(Category)}
-                                            className="btn-primary" Editar>Apagar</button>
+                                            className="btn-red" Editar>Apagar</button>
                                     </td>
                                 </tr>
 
                             ))}
 
                     </tbody>
+                    {isLoading && (
+                        <tr>
+                            <td colSpan={2}>
+                                <div className='py-4'>
+                                    <Spinner fullwidth={true} />
+                                </div>
+                            </td>
+                        </tr>
+                    )}
                 </table>
             )}
         </Layout>
