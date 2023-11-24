@@ -138,16 +138,16 @@ export default function ProductForm({
                 <div className="">
                     <label>{p.name}</label>
                     <div>
-                    <select
-                        value={productProperties[p.name]}
-                        onChange={ev => { setProductProp(p.name, ev.target.value) }}>
-                        {p.values.map(v => (
-                            <option value={v}>{v}</option>
-                        ))}
-                    </select>
+                        <select
+                            value={productProperties[p.name]}
+                            onChange={ev => { setProductProp(p.name, ev.target.value) }}>
+                            {p.values.map(v => (
+                                <option value={v}>{v}</option>
+                            ))}
+                        </select>
 
                     </div>
-                    
+
                 </div>
             ))}
 
@@ -155,20 +155,22 @@ export default function ProductForm({
                 Fotos
             </label>
 
-            <div className="mb-2 flex flex-wrap gap-2">
+            <div className="mb-2 flex flex-wrap gap-2 relative"> {/* Adicione a classe 'relative' aqui */}
                 <ReactSortable
                     list={images}
                     className="flex flex-wrap gap-1"
                     setList={updateImagesOrder}
                 >
                     {!!images?.length && images.map((link, index) => (
-                        <div key={link} className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200">
+                        <div key={link} className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200 relative"> {/* Adicione a classe 'relative' aqui */}
                             <img src={link} className="rounded-lg" alt={`Imagem ${index}`} />
                             <button
-                                className="absolute top-0 right-0 p-2 text-white bg-red-500 rounded-full"
+                                className="absolute top-2 right-2 p-1 text-white bg-red-500 rounded-full hover:bg-red-600 transition duration-300 focus:outline-none focus:ring focus:border-blue-300"
                                 onClick={() => removeImage(index)}
                             >
-                                Remover
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
                             </button>
                         </div>
                     ))}

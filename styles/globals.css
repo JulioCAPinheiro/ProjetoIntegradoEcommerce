@@ -2,76 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
+:root {
     --corPrimeira: #4169e1;
     --corSecundaria: #008080;
     --terceiraCor: #001f3f;
 }
 
-.layout{
+.layout {
     background-color: var(--terceiraCor)
 }
 
-img{
+img {
     max-height: 100%;
 }
 
-input, textarea,select{
+input, textarea, select {
     @apply border border-gray-200 rounded-sm px-1 w-full py-2 px-2;
     @apply shadow-sm;
-    @apply mb-2; 
+    @apply mb-2;
 }
 
-input:focus, textarea:focus, select:focus{
+input:focus, textarea:focus, select:focus {
     @apply border-blue-900;
 }
 
-h1{
+h1 {
     @apply text-gray-800 mb-4 text-xl;
 }
 
-h2{
-    @apply text-gray-800  mt-6 mb-2 text-lg;
+h2 {
+    @apply text-gray-800 mt-6 mb-2 text-lg;
 }
 
-label{
-    @apply text-gray-600 text-sm ;
+label {
+    @apply text-gray-600 text-sm;
 }
 
-.btn-primary{
+.btn-primary {
     @apply bg-blue-900 text-white px-4 py-1 rounded-sm shadow-md;
 }
 
-table.basic{
+table.basic {
     @apply w-full bg-white rounded-md shadow-md;
 }
 
-table.basic thead tr td{
+table.basic thead tr td {
     @apply text-sm text-gray-600 border-b border-gray-200 px-4 py-2;
 }
 
-table.basic tr td{
+table.basic tr td {
     @apply px-4 py-1 border-b border-gray-200;
 }
 
-table.basic a{
+table.basic a {
     @apply px-3 rounded-sm inline-flex mx-1 items-center gap-1 text-sm py-1;
 }
 
-.btn-default, .btn-red{
+.btn-default, .btn-red {
     @apply px-4 py-1 rounded-md;
 }
 
-.btn-red{
+.btn-red {
     @apply bg-red-200 text-red-600 px-4 py-1 rounded-sm shadow-md;
 }
 
-.btn-default{
+.btn-default {
     @apply bg-blue-900 text-white px-4 py-1 rounded-sm shadow-md;
 }
-.form{
+
+.form {
     background-color: #001f3f;
     display: flex;
+    flex-direction: column; /* Mudança para coluna em telas menores */
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -84,7 +86,8 @@ table.basic a{
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #001f3f;
-    width: 300px;
+    width: 100%; /* Alteração para ocupar a largura total em telas menores */
+    max-width: 400px; /* Adição de uma largura máxima */
 }
 
 .login-container h2 {
@@ -112,28 +115,50 @@ table.basic a{
 
 .AdmInput {
     display: flex;
-    justify-content: center;
-    align-items: center; /* Adicione esta linha para alinhar verticalmente */
-  }
-  
-  .email_Adm_New {
-    margin-right: 10px;
+    flex-direction: column; /* Mudança para coluna em telas menores */
+    align-items: center;
+}
+
+.email_Adm_New {
+    width: 100%; /* Ocupar a largura total */
+    max-width: 300px; /* Adição de uma largura máxima */
+    margin-bottom: 10px;
     border-radius: 5px;
-  }
-  
-  .salve_adm_Button {
+}
+
+.salve_adm_Button {
     background-color: #53CFF6;
     border-radius: 3px;
-    align-items: center; /* Adicione esta linha para alinhar verticalmente */
-    padding: 5px 10px; /* Adicione preenchimento para espaçamento interno */
-    cursor: pointer; /* Adicione um cursor ao botão para indicar interatividade */
-  }
-  
-  .emails_exist_admin{
+    align-items: center;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.emails_exist_admin {
+    width: 100%; /* Ocupar a largura total */
     border: solid #F0F0F0;
     background-color: #F0F0F0;
-    margin: 5px 0 5px 0;
-    padding: 0 15px 0 10px;
-  }
+    margin: 5px 0 10px 0; /* Ajuste da margem inferior */
+    padding: 10px; /* Ajuste do preenchimento */
+}
 
+@media (min-width: 768px) {
+    /* Adicione estilos específicos para telas com largura mínima de 768px (tablets e desktops) */
+    .form {
+        flex-direction: row;
+    }
 
+    .login-container {
+        margin: 0 auto; /* Centralizar em telas maiores */
+    }
+
+    .AdmInput {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .email_Adm_New {
+        margin-right: 10px;
+        margin-bottom: 0;
+    }
+}
