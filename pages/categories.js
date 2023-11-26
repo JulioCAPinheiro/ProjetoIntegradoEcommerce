@@ -125,6 +125,7 @@ function Categories({ swal }) {
                         placeholder="Categoria produto"
                         onChange={ev => setName(ev.target.value)}
                         value={name}
+                        required
                     />
 
                     <select
