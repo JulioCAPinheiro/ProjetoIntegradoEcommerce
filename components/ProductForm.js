@@ -130,24 +130,22 @@ export default function ProductForm({
                 onChange={ev => setCategory(ev.target.value)}>
                 <option value="">Sem categoria</option>
                 {categories.length > 0 && categories.map(Cat => (
-                    <option value={Cat._id}>{Cat.name}</option>
+                    <option key={Cat._id} value={Cat._id}>{Cat.name}</option>
                 ))}
             </select>
 
             {propertiesToFill.length > 0 && propertiesToFill.map(p => (
-                <div className="">
+                <div key={p.name} className="">
                     <label>{p.name}</label>
                     <div>
                         <select
                             value={productProperties[p.name]}
                             onChange={ev => { setProductProp(p.name, ev.target.value) }}>
                             {p.values.map(v => (
-                                <option value={v}>{v}</option>
+                                <option key={v} value={v}>{v}</option>
                             ))}
                         </select>
-
                     </div>
-
                 </div>
             ))}
 

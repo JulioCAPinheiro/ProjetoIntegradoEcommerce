@@ -147,7 +147,7 @@ function Categories({ swal }) {
                         Adicionar nova propriedade
                     </button>
                     {properties.length > 0 && properties.map((property, index) => (
-                        <div className="flex gap-1 mb-2">
+                        <div key={index} className="flex gap-1 mb-2">
                             <input
                                 type="text"
                                 className="mb-0"
@@ -206,7 +206,7 @@ function Categories({ swal }) {
                     <tbody>
                         {categories.length > 0 && categories.map
                             (Category => (
-                                <tr>
+                                <tr key={Category._id}>
                                     <td>
                                         {Category.name}
                                     </td>

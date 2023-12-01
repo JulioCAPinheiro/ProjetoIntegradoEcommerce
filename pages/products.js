@@ -7,7 +7,7 @@ import Spinner from '@/components/Spinner';
 export default function Products() {
 
   const [products, setProducts] = useState([]);
-  const [ isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -54,14 +54,14 @@ export default function Products() {
           ))}
         </tbody>
         {isLoading && (
-                        <tr>
-                            <td colSpan={2}>
-                                <div className='py-4'>
-                                    <Spinner fullwidth={true} />
-                                </div>
-                            </td>
-                        </tr>
-                    )}
+          <tr>
+            <td colSpan={2}>
+              <div className='py-4'>
+                <Spinner fullwidth={true} />
+              </div>
+            </td>
+          </tr>
+        )}
       </table>
     </Layout>
   )
